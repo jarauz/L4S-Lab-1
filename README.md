@@ -11,7 +11,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 3. Right click on the Ubuntu-CLI-Router and enter the Configuration window
 4. Click on the network tab and change "Adapters" to 3
 5. Start the Ubuntu-CLI-Router and apply the following commands,
-   '''
+   ```
    sudo nano /etc/netplan/50-cloud-init.yaml
-   '''
+   ```
 6. ksjdjf
