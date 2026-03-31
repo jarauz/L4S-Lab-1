@@ -94,8 +94,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo nmcli connection up "Wired connection 1"
     ```
 
+12. At this point all devices are able to reach each other and a reliable IP address (Ask instructor for help if this isn't working for you)
+
 # Task 2
 
-## test
-
-### test1
