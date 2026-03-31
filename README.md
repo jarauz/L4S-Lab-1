@@ -78,7 +78,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
    sudo nano /etc/sysctl.conf
    ```
 
-11. Find the line that looks like "#net.ipv4.ip_forward=1" and uncomment it and laod the new changes
+11. Find the line that looks like ```#net.ipv4.ip_forward=1``` and uncomment it and laod the new changes
 
     ```
     sudo sysctl -p
