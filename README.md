@@ -61,7 +61,9 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
    sudo netplan apply
    ```
 
-8. Apply a NAT to allow client and server machines to download new kernel
+8. Use ```ip a``` to verify all three interfaces got an address
+
+9. Apply a NAT to allow client and server machines to download new kernel
 
    ```
    sudo iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE
@@ -70,19 +72,19 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
    sudo iptables -A FORWARD -i ens3 -m state --state RELATED,ESTABLISHED -j ACCEPT
    ```
 
-9. Now you need to enable IPv4 forwarding so it can act as a router
+10. Now you need to enable IPv4 forwarding so it can act as a router
 
    ```
    sudo nano /etc/sysctl.conf
    ```
 
-10. Find the line that looks like "#net.ipv4.ip_forward=1" and uncomment it and laod the new changes
+11. Find the line that looks like "#net.ipv4.ip_forward=1" and uncomment it and laod the new changes
 
     ```
     sudo sysctl -p
     ```
 
-11. Start and configure all client and server Ubuntu devices
+12. Start and configure all client and server Ubuntu devices
 
     ```
     sudo nmcli general hostname Ubuntu-CLI-<CHECK IP GRID>
@@ -94,7 +96,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo nmcli connection up "Wired connection 1"
     ```
 
-12. At this point all devices are able to reach each other and a reliable IP address (Ask instructor for help if this isn't working for you)
+13. At this point all devices are able to reach each other and a reliable IP address (Ask instructor for help if this isn't working for you)
 
 # Task 2
 
