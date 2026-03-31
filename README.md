@@ -14,4 +14,23 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
    ```
    sudo nano /etc/netplan/50-cloud-init.yaml
    ```
-6. ksjdjf
+6. And have your .yaml file look like this,
+   ```
+   network:
+     version: 2
+     renderer: NetworkManager
+     ethernets:
+       ens3:
+         dhcp4: yes
+         dhcp4-overrides:
+           use-dns: true
+           use-routes: true
+       ens4:
+         dhcp4: no
+         addresses:
+           - 192.168.1.254/24
+       ens5:
+         dhcp4: no
+         addresses:
+           - 192.168.2.254/24
+     ```
