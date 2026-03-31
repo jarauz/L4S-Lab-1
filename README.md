@@ -100,3 +100,34 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 
 # Task 2
 
+## Download TCP Prague Kernel (All steps need to be done on every machine)
+
+14. Download all tools needed
+
+    ```
+    sudo apt-get update
+    sudo apt install unzip
+    ```
+
+15. Download the TCP Prague kernel
+
+    ```
+    wget https://github.com/L4STeam/linux/releases/download/testing-build/l4s-testing.zip
+    ```
+
+16. Unzip the downloaded zip file
+
+    ```
+    unzip l4s-testing.zip -d l4s-kernel
+    ```
+
+17. Install the packages
+
+    ```
+    cd ~/l4s-kernel
+    sudo dpkg --install debian_build/*
+    sudo update-grub
+    ```
+
+18. Reboot the machine and when the GNU Grub Menu appears, Use the arrow keys to select "Advanced options for Ubuntu" and select the newly installed kernel named "Ubuntu, with Linux 5.15.72-8ac01b97f-prague-121"
+
