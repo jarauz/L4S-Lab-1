@@ -94,3 +94,8 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo nmcli connection up "Wired connection 1"
     ```
 
+# Task 2
+
+## test
+
+### test1
