@@ -131,3 +131,17 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 
 18. Reboot the machine and when the GNU Grub Menu appears, Use the arrow keys to select "Advanced options for Ubuntu" and select the newly installed kernel named "Ubuntu, with Linux 5.15.72-8ac01b97f-prague-121"
 
+19. Use this command to see what kernel is being used. You should see the newly installed kernel
+
+    ```
+    uname -r
+    ```
+
+20. Load the required modules
+
+    ```
+    sudo modprobe sch_dualpi2
+    sudo modprobe tcp_prague
+    ```
+
+# Task 3
