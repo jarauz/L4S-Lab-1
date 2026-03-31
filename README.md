@@ -11,15 +11,12 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 | Name           | Interface     | Address/Mask     |
 |----------------|---------------|------------------|
 | **WAN** | | 
-| VyOS-1         | |132.235.205.**X**/25
-| (WAN Gateway)  | |132.235.205.**Y**
+| Ubuntu-CLI-Router    | ens3 |DHCP
 ||
-| **Front Office Network** ||
-| DHCP Pool Start        ||
-| VPCS                   ||
-| Windows                ||
-| DHCP Pool Stop         ||
-| VyOS-1 (Front Office Gateway)  ||
+| **Client LAN** ||
+| Ubuntu-CLI-Router        |ens4 |192.168.1.254/24
+| Ubuntu-CLI-VBR-Client    |ens3 |192.168.1.1
+| Ubuntu-CLI-CBR-Client    |ens3 |192.168.1.2
 | |
 | **Guest Wi-Fi Network**       ||
 | DHCP Pool Start        ||
