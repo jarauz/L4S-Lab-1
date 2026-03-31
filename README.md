@@ -13,17 +13,15 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 | **WAN** | | 
 | Ubuntu-CLI-Router    | ens3 |DHCP
 ||
-| **Client LAN** ||
+| **Client LAN** ||192.168.1.0/24
 | Ubuntu-CLI-Router        |ens4 |192.168.1.254/24
 | Ubuntu-CLI-VBR-Client    |ens3 |192.168.1.1
 | Ubuntu-CLI-CBR-Client    |ens3 |192.168.1.2
 | |
-| **Guest Wi-Fi Network**       ||
-| DHCP Pool Start        ||
-| VPCS  ||
-| Ubuntu-GUI             ||
-| DHCP Pool Stop         ||
-| VyOS-2 (Guest Wi-Fi Gateway)  ||
+| **Server LAN**       ||192.168.2.0/24
+| Ubuntu-CLI-Router        |ens5|192.168.2.254/24
+| Ubuntu-CLI-VBR-Server    |ens3|192.168.2.1
+| Ubuntu-CLI-CBR-Server    |ens3|192.168.2.2
 
 ## Configuration
 1. Start a new blank project in GNS3 called "L4S-Lab1" and create the network shown in the diagram above
