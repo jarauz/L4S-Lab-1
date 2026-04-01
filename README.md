@@ -160,7 +160,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 22. The flags in the TCP header of the packet are what determines what type of ECN will be set in the IP header
 
 | SYN (A-->B)       | SYN-ACK (B-->A)   | Result   |
-| AE  | CWR  | ECE  |  AE | CWR  | ECE  |          |
 |----------------|---------------|------------------|
+| AE  | CWR  | ECE  |  AE | CWR  | ECE  |          |
 |  1  |  1   |  1   |  0  |  1   |  0   | Non-ECT
 |  1  |  1   |  1   |  0  |  1   |  1   | Non-ECT
