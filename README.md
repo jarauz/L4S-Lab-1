@@ -159,6 +159,6 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 
 22. The flags in the TCP header of the packet are what determines what type of ECN will be set in the IP header. The three flags that are used to set ECT are Accurate ECN, Congestion Window Reduced, and ECN-Echo. The graph below shows which flags are set on the SYN packet to the server, the flags set on the SYN-ACK back to the client, and the result of these two packets.
 
-       ![](./images/TCPFlagGraph.png)
+       
 
 23. 
