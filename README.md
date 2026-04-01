@@ -161,4 +161,13 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 
        ![](./images/TCPFlagGraph.png)
 
-23. 
+23. Use these commands on each device to set the congestion control algorithm and ECN
+
+    ```
+    sudo sysctl -w net.ipv4.tcp_congestion_control=reno
+    sudo sysctl -w net.ipv4.tcp_ecn=0
+    ```
+
+## Sending Variable and Constant Bit Rate Data
+
+24. 
