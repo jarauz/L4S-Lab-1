@@ -106,8 +106,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 14. Download all tools needed
 
     ```
-    sudo apt-get update
-    sudo apt install unzip
+    sudo apt-get update && sudo apt install unzip -y
     ```
 
 15. Download the TCP Prague kernel
