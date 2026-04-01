@@ -145,3 +145,15 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     ```
 
 # Task 3
+
+## IP Header and ECN
+
+21. Explicit Congestion Notification (ECN) is a networking extension that allows routers to signal impending network congestion to end-hosts without dropping packets. ECN is set in the IPv4 header of the packet in the Differentiated Services Field using the last two bits to set ECN
+
+| ECN Codepoint       | Name        | Meaning     |
+|----------------|---------------|------------------|
+| 00       | Non-ECT   | Not ECN-Capable Transport. The router will drop this packet when there is congestion as a signal
+| 01       | ECT-1     | ECN-Capable Transport. In L4S, this identifies a packet from an L4S-aware sender (Using TCP Prague)
+| 10       | ECT-0     | ECN-Capable Transport. Used by "Classic" ECN senders (Using Standard TCP)
+| 11       | CE        | Congestion Experienced. The router changed the bits to 11 to tell the receiver that the queue is filling up
+
