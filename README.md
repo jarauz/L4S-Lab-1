@@ -168,6 +168,18 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo sysctl -w net.ipv4.tcp_ecn=0
     ```
 
-## Sending Variable and Constant Bit Rate Data
+## Setting up the Queue
 
-24. 
+24. For testing using classic congestion control algorithms like TCP Reno and Cubic. We could use the default queue that Ubuntu uses but to ensure no packets are prioritized based on the traffic type, we will use a PFIFO (Packet First in, First Out). For eth1/ens4 on the Ubuntu-CLI-Router, we will use the following command
+
+    ```
+    sudo tc qdisc replace dev ens4 root pfifo limit 18
+    ```
+
+25. The bandwidth between on the virtual links can support up to 50 Mbps. To be able to generate traffic and see the Congestion Experienced mark in Wireshark, we have to set a bandwidth limit between the router and servers. To do this we first create the traffic shaper which tells Ubuntu to not exceed the set limit and the second command sets the queue to a pfifo queue with a limit of 18 packets
+
+    ```
+    sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> root handle 1: tbf rate 1mbit burst 1540b latency 50ms
+    sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> parent 1: pfifo limit 18
+    ```
+
