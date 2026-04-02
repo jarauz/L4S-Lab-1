@@ -183,3 +183,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> parent 1: pfifo limit 18
     ```
 
+## Sending Variable and Constant Bit Rate Traffic
+
+26. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
+27. To generate the background CBR traffic we will use iperf3...
