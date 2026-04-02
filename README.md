@@ -176,7 +176,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo tc qdisc replace dev ens4 root pfifo limit 18
     ```
 
-25. The bandwidth between on the virtual links can support up to 50 Mbps. To be able to generate traffic and see the Congestion Experienced mark in Wireshark, we have to set a bandwidth limit between the router and servers. To do this we first create the traffic shaper which tells Ubuntu to not exceed the set limit and the second command sets the queue to a pfifo queue with a limit of 18 packets
+25. The bandwidth between on the virtual links can support up to 50 Mbps. To be able to generate traffic and see the Congestion Experienced mark in Wireshark, we have to set a bandwidth limit between the router and servers. To do this we first create the traffic shaper which tells Ubuntu to not exceed the set limit and the second command sets the queue to a pfifo queue with a limit of 18 packets. You will run this command on the router and both servers
 
     ```
     sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> root handle 1: tbf rate 1mbit burst 1540b latency 50ms
