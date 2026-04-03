@@ -186,4 +186,30 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 ## Sending Variable and Constant Bit Rate Traffic
 
 26. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
-27. To generate the background CBR traffic we will use iperf3...
+27. To generate the background CBR traffic we will use iperf3 to generate UDP traffic through the network, The following command will set the Ubuntu-CLI-CBR-Server to act as a server waiting for a request from a client
+
+    ```
+    iperf3 -s
+    ```
+
+28. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
+
+    ```
+    ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
+    ```
+
+29. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
+30. We will start the background traffic first at a low level and slowly raise the bit rate
+
+    ```
+    iperf3 -c 192.168.2.2 -u -b 200k -t 0
+    ```
+
+31. We can now start the VBR data stream with the following command,
+
+    ```
+    ffmpeg -i tcp://192.168.2.1:5000 -f null -
+    ```
+
+32. Let the VBR traffic run for 5 minutes or so in order to collect data and use <ctrl>+<c> to stop the data streams
+33. Stop the Wireshark capture and save it for later use
