@@ -199,13 +199,13 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     ```
 
 29. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
-30. We will start the background traffic first at a low level and slowly raise the bit rate
+30. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at a low level and slowly raise the bit rate
 
     ```
     iperf3 -c 192.168.2.2 -u -b 200k -t 0
     ```
 
-31. We can now start the VBR data stream with the following command,
+31. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
 
     ```
     ffmpeg -i tcp://192.168.2.1:5000 -f null -
