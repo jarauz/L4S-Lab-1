@@ -157,7 +157,7 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 | 10       | ECT-0     | ECN-Capable Transport. Used by "Classic" ECN senders (Using Standard TCP)
 | 11       | CE        | Congestion Experienced. The router changed the bits to 11 to tell the receiver that the queue is filling up
 
-22. The flags in the TCP header of the packet are what determines what type of ECN will be set in the IP header. The three flags that are used to set ECT are Accurate ECN, Congestion Window Reduced, and ECN-Echo. The graph below shows which flags are set on the SYN packet to the server, the flags set on the SYN-ACK back to the client, and the result of these two packets.
+22. The flags in the TCP header of the packet are what determines what type of ECN will be set in the IP header. The three flags that are used to set ECT are Accurate ECN (AE), Congestion Window Reduced (CWR), and ECN-Echo (ECE). The graph below shows which flags are set on the SYN packet to the server, the flags set on the SYN-ACK back to the client, and the result of these two packets.
 
        ![](./images/TCPFlagGraph.png)
 
