@@ -64,7 +64,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
    sudo netplan apply
    ```
 
-8. Use ```ip a``` to verify all three interfaces got an address
+8. Reboot the machine and use ```ip a``` to verify all three interfaces got an address
 
 9. Apply a NAT to allow client and server machines to download new kernel
 
