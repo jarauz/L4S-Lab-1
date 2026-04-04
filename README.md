@@ -99,6 +99,12 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     sudo nmcli connection up "Wired connection 1"
     ```
 
+13. We then will install ffmpeg on both the Ubuntu-CLI-VBR-Client and Ubuntu-CLI-VBR-Server for later use
+
+    ```
+    sudo apt-get update && sudo apt install ffmpeg -y
+    ```
+
 13. At this point all devices are able to reach each other and a reliable IP address (Ask instructor for help if this isn't working for you)
 
 # Task 2
@@ -136,13 +142,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     iperf3 -s
     ```
 
-19. This next command will generate the TCP VBR traffic using ffmpeg but we first need to install ffmpeg on both the Ubuntu-CLI-VBR-Client and Ubuntu-CLI-VBR-Server
-
-    ```
-    sudo apt-get update && sudo apt install ffmpeg -y
-    ```
-    
-20. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
+19. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
 
     ```
     ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
