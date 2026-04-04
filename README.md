@@ -1,5 +1,6 @@
 # L4S-Lab-1
-The building and creation of a small network that uses TCP Reno and TCP Cubic to compare to L4S-Lab-2
+The building and creation of a small network that uses TCP Reno and TCP Cubic to compare to L4S-Lab-2.
+
 In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as a placeholder. Please replace it with your specific experimental value
 
 # Task 1
