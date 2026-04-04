@@ -148,28 +148,28 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
     ```
 
-22. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
-23. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at 200Kbps and slowly raise the bit rate
+21. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
+22. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at 200Kbps and slowly raise the bit rate
 
     ```
     iperf3 -c 192.168.2.2 -u -b 200k -t 0
     ```
 
-24. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
+23. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
 
     ```
     ffmpeg -i tcp://192.168.2.1:5000 -f null -
     ```
 
-25. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
-26. Stop the Wireshark capture and save it as Lab1-Reno-<BITRATE>. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
-27. Save all four Wireshark captures for later comparison during Lab 2
-28. You will now change the congestion control to TCP Cubic using the following command
+24. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
+25. Stop the Wireshark capture and save it as Lab1-Reno-<BITRATE>. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
+26. Save all four Wireshark captures for later comparison during Lab 2
+27. You will now change the congestion control to TCP Cubic using the following command
 
     ```
     sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
     sudo sysctl -w net.ipv4.tcp_ecn=0
     ```
 
-29. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
+28. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
 30. Stop and save these Wireshark captures as Lab1-Cubic-<BITRATE>
