@@ -1,5 +1,6 @@
 # L4S-Lab-1
 The building and creation of a small network that uses TCP Reno and TCP Cubic to compare to L4S-Lab-2
+In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as a placeholder. Please replace it with your specific experimental value
 
 # Task 1
 
@@ -109,10 +110,6 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     sudo sysctl -w net.ipv4.tcp_congestion_control=reno
     sudo sysctl -w net.ipv4.tcp_ecn=0
     ```
-    ```
-    sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
-    sudo sysctl -w net.ipv4.tcp_ecn=0
-    ```
 
 15. For testing using classic congestion control algorithms like TCP Reno and Cubic. We could use the default queue that Ubuntu uses but to ensure no packets are prioritized based on the traffic type, we will use a PFIFO (Packet First in, First Out). For eth1/ens4 on the Ubuntu-CLI-Router, we will use the following command
 
@@ -158,5 +155,14 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
     ```
 
 23. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
-24. Stop the Wireshark capture and save it as Lab1-200Kbps. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200, 600, 1000, and 1400)
+24. Stop the Wireshark capture and save it as Lab1-Reno-<BITRATE>. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
 25. Save all four Wireshark captures for later comparison during Lab 2
+26. You will now change the congestion control to TCP Cubic using the following command
+
+    ```
+    sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
+    sudo sysctl -w net.ipv4.tcp_ecn=0
+    ```
+
+27. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
+28. Stop and save these Wireshark captures as Lab1-Cubic-<BITRATE>
