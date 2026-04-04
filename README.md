@@ -105,7 +105,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 
 ## Congestion Control and Setting up the Queue
 
-14. Use these commands on each device to set the congestion control algorithm to either TCP Reno or TCP Cubic and ECN
+14. Use these commands on each device to set the congestion control algorithm to TCP Reno and ECN to 0
 
     ```
     sudo sysctl -w net.ipv4.tcp_congestion_control=reno
