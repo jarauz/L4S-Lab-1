@@ -142,7 +142,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     sudo apt-get update && sudo apt install ffmpeg -y
     ```
     
-20.This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
+20. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
 
     ```
     ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
