@@ -101,116 +101,62 @@ The building and creation of a small network that uses TCP Reno and TCP Cubic to
 
 # Task 2
 
-## Download TCP Prague Kernel (All steps need to be done on every machine)
+## Congestion Control and Setting up the Queue
 
-14. Download all tools needed
-
-    ```
-    sudo apt-get update && sudo apt install unzip -y
-    ```
-
-15. Download the TCP Prague kernel
-
-    ```
-    wget https://github.com/L4STeam/linux/releases/download/testing-build/l4s-testing.zip
-    ```
-
-16. Unzip the downloaded zip file
-
-    ```
-    unzip l4s-testing.zip -d l4s-kernel
-    ```
-
-17. Install the packages
-
-    ```
-    cd ~/l4s-kernel
-    sudo dpkg --install debian_build/*
-    sudo update-grub
-    ```
-
-18. Reboot the machine and when the GNU Grub Menu appears, Use the arrow keys to select "Advanced options for Ubuntu" and select the newly installed kernel named "Ubuntu, with Linux 5.15.72-8ac01b97f-prague-121"
-
-19. Use this command to see what kernel is being used. You should see the newly installed kernel
-
-    ```
-    uname -r
-    ```
-
-20. Load the required modules
-
-    ```
-    sudo modprobe sch_dualpi2
-    sudo modprobe tcp_prague
-    ```
-
-# Task 3
-
-## IP Header, TCP Header and ECN
-
-21. Explicit Congestion Notification (ECN) is a networking extension that allows routers to signal impending network congestion to end-hosts without dropping packets. ECN is set in the IPv4 header of the packet in the Differentiated Services Field using the last two bits to set ECN
-
-| ECN Codepoint       | Name        | Meaning     |
-|----------------|---------------|------------------|
-| 00       | Non-ECT   | Not ECN-Capable Transport. The router will drop this packet when there is congestion as a signal
-| 01       | ECT-1     | ECN-Capable Transport. In L4S, this identifies a packet from an L4S-aware sender (Using TCP Prague)
-| 10       | ECT-0     | ECN-Capable Transport. Used by "Classic" ECN senders (Using Standard TCP)
-| 11       | CE        | Congestion Experienced. The router changed the bits to 11 to tell the receiver that the queue is filling up
-
-22. The flags in the TCP header of the packet are what determines what type of ECN will be set in the IP header. The three flags that are used to set ECT are Accurate ECN (AE), Congestion Window Reduced (CWR), and ECN-Echo (ECE). The graph below shows which flags are set on the SYN packet to the server, the flags set on the SYN-ACK back to the client, and the result of these two packets.
-
-       ![](./images/TCPFlagGraph.png)
-
-23. Use these commands on each device to set the congestion control algorithm and ECN
+14. Use these commands on each device to set the congestion control algorithm to either TCP Reno or TCP Cubic and ECN
 
     ```
     sudo sysctl -w net.ipv4.tcp_congestion_control=reno
     sudo sysctl -w net.ipv4.tcp_ecn=0
     ```
+    ```
+    sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
+    sudo sysctl -w net.ipv4.tcp_ecn=0
+    ```
 
-## Setting up the Queue
-
-24. For testing using classic congestion control algorithms like TCP Reno and Cubic. We could use the default queue that Ubuntu uses but to ensure no packets are prioritized based on the traffic type, we will use a PFIFO (Packet First in, First Out). For eth1/ens4 on the Ubuntu-CLI-Router, we will use the following command
+15. For testing using classic congestion control algorithms like TCP Reno and Cubic. We could use the default queue that Ubuntu uses but to ensure no packets are prioritized based on the traffic type, we will use a PFIFO (Packet First in, First Out). For eth1/ens4 on the Ubuntu-CLI-Router, we will use the following command
 
     ```
     sudo tc qdisc replace dev ens4 root pfifo limit 18
     ```
 
-25. The bandwidth between on the virtual links can support up to 50 Mbps. To be able to generate traffic and see the Congestion Experienced mark in Wireshark, we have to set a bandwidth limit between the router and servers. To do this we first create the traffic shaper which tells Ubuntu to not exceed the set limit and the second command sets the queue to a pfifo queue with a limit of 18 packets. You will run this command on the router and both servers
+16. The bandwidth between on the virtual links can support up to 50 Mbps. To be able to generate traffic and see the Congestion Experienced mark in Wireshark, we have to set a bandwidth limit between the router and servers. To do this we first create the traffic shaper which tells Ubuntu to not exceed the set limit and the second command sets the queue to a pfifo queue with a limit of 18 packets. You will run this command on the router and both servers
 
     ```
     sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> root handle 1: tbf rate 1mbit burst 1540b latency 50ms
     sudo tc qdisc add dev ens<REPLACE WITH INTERFACE NUMBER> parent 1: pfifo limit 18
     ```
-# Task 4
+
+# Task 3
 
 ## Sending Variable and Constant Bit Rate Traffic
 
-26. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
-27. To generate the background CBR traffic we will use iperf3 to generate UDP traffic through the network, The following command will set the Ubuntu-CLI-CBR-Server to act as a server waiting for a request from a client
+17. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
+18. To generate the background CBR traffic we will use iperf3 to generate UDP traffic through the network, The following command will set the Ubuntu-CLI-CBR-Server to act as a server waiting for a request from a client
 
     ```
     iperf3 -s
     ```
 
-28. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
+19. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
 
     ```
     ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
     ```
 
-29. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
-30. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at a low level and slowly raise the bit rate
+20. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
+21. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at 200Kbps and slowly raise the bit rate
 
     ```
     iperf3 -c 192.168.2.2 -u -b 200k -t 0
     ```
 
-31. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
+22. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
 
     ```
     ffmpeg -i tcp://192.168.2.1:5000 -f null -
     ```
 
-32. Let the VBR traffic run for 5 minutes or so in order to collect data and use <ctrl>+<c> to stop the data streams
-33. Stop the Wireshark capture and save it for later use
+23. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
+24. Stop the Wireshark capture and save it as Lab1-200Kbps. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200, 600, 1000, and 1400)
+25. Save all four Wireshark captures for later comparison during Lab 2
