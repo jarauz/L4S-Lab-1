@@ -196,7 +196,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     echo 0 > events/tcp/tcp_probe/enable
     ```
     
-30. Save the trace file to the itsclass directory. Save the file name as the bit rate used in iperf3 (For example: 200KbpsTrace)
+30. Save the trace file to the itsclass directory. Save the file name as the bit rate and congestion control algorithim used in iperf3 (For example: Reno200KbpsTrace)
 
     ```
     cp trace /home/itsclass/<filename>
