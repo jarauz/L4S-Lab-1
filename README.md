@@ -247,4 +247,5 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 | CBR Client to CBR Server | 200 Kbps | 600 Kbps | 1000 Kbps | 1400 Kbps 
 |          Mean RTT        |          |          |           |           
 
-39. **POSSIBLE CWD GRAPH-TALK TO JULIO**
+39. Wireshark can also generate graphs to view the RTT over the duration of the packet capture. To view these graphs, click on Statistics, TCP Stream Graphs, and then Round Trip Time.
+40. **POSSIBLE CWD GRAPH-TALK TO JULIO**
