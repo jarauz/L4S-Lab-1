@@ -239,7 +239,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     tshark -r <NAME OF PCAP>.pcapng -Y "tcp.analysis.ack_rtt" -T fields -e tcp.analysis.ack_rtt | awk '{ sum += $1; n++ } END { if (n > 0) print sum / n; else print "No RTT data found"; }'
     ```
 
-38. Create a table and save these values for comparison
+38. Create two tables, one for TCP Reno and one for TCP Cubic and save these values for comparison
 
 |   |   A   |   B   |   C   |   D   |
 |---|-------|-------|-------|-------|
