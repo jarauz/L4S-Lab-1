@@ -228,3 +228,23 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 
 35. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
 36. Stop and save these Wireshark captures as Lab1-Cubic-<BITRATE>
+
+# Task 4
+
+## Examining Results
+
+37. Open a new terminal in your gHost so we can calculate the mean RTT of each Wireshark capture using the following command. Make sure you're in the same directory as your captures.
+
+    ```
+    tshark -r <NAME OF PCAP>.pcapng -Y "tcp.analysis.ack_rtt" -T fields -e tcp.analysis.ack_rtt | awk '{ sum += $1; n++ } END { if (n > 0) print sum / n; else print "No RTT data found"; }'
+    ```
+
+38. Create a table and save these values for comparison
+
+|   |   A   |   B   |   C   |   D   |
+|---|-------|-------|-------|-------|
+| VBR Client to VBR Server | Level 1  | Level 1  |  Level 1  |  Level 1 
+| CBR Client to CBR Server | 200 Kbps | 600 Kbps | 1000 Kbps | 1400 Kbps 
+|          Mean RTT        |          |          |           |           
+
+39. **POSSIBLE CWD GRAPH-TALK TO JULIO**
