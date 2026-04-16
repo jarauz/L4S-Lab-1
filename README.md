@@ -249,3 +249,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 
 39. Wireshark can also generate graphs to view the RTT over the duration of the packet capture. To view these graphs, click on Statistics, TCP Stream Graphs, and then Round Trip Time.
 40. **POSSIBLE CWD GRAPH-TALK TO JULIO**
+
+## Questions
+
+45. **QUESTIONS ABOUT BITS SET IN THE TCP SECTION AND DIFF SERVICES FIELD ON BOTH SYN AND SYN-ACK AND OTHER QUESTIONS**
