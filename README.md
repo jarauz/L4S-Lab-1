@@ -1,5 +1,14 @@
 # L4S-Lab-1
-The building and creation of a small network that uses TCP Reno and TCP Cubic to compare to L4S-Lab-2.
+The objective of this lab is to establish a performance baseline for "Classic" congestion control algorithms within a constrained network environment. In modern networking, the dominant challenge is not just throughput, but bufferbloat. Bufferbloat is the high latency caused by long queues in network devices.
+
+Classic congestion control algorithms like TCP Reno and TCP Cubic rely on Packet Loss as the primary signal for congestion.
+
+TCP Reno: Uses an Additive Increase Multiplicative Decrease (AIMD) approach. It increases the congestion window linearly and cuts it by 50% upon detecting a packet drop.
+
+TCP Cubic: Uses a cubic function to grow the window, allowing for faster recovery in high-bandwidth, high-latency networks, but it still cuts its congestion window significantly when detecting a packet drop.
+
+In this lab, we will use a pfifo (First-In, First-Out) queue at the bottleneck router. Because pfifo is "dumb" and has no active queue management and wont prioritize certain types of traffic, the sender will continue to push data until the router's buffer is completely exhausted, leading to maximum queuing delay before the sender finally slows down.
+
 
 In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as a placeholder. Please replace it with your specific experimental value
 
