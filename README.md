@@ -252,4 +252,6 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 
 ## Questions
 
-45. **QUESTIONS ABOUT BITS SET IN THE TCP SECTION AND DIFF SERVICES FIELD ON BOTH SYN AND SYN-ACK AND OTHER QUESTIONS**
+41. Open a Wireshark capture and apply the filter "tcp.flags.syn == 1" to find the SYN packet coming from 192.168.1.1 and expand the "Internet Protocol Verison 4" section of the packet. What is the ECN codepoint being used (ECT-1, ECT-0, Non-ECT, or CE)
+42. Look at the SYN-ACK packet returning from the server. Are there any flags set in the TCP header? Given that this is a standard TCP Reno/Cubic test, why does the server not negotiate ECN?
+43. On one of the Wireshark captures, go to statistics, TCP Stream Graphs, and view the Throughput graph. Observe the pattern in your throughput graph and explain why the throughput drops sharply at specific intervals and what is happening to the router's queue during those drops
