@@ -262,6 +262,9 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     ```
 
 42. Now open Visual Studio Code and use the python script to generate graphs on these trace files. (ensure your python file is in the same location as your trace files)
+43. Below is an example graph of what you will be generating
+
+![](./images/VBRScenario2G_Graph.png)
 
 ## Questions
 
