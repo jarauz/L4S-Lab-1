@@ -155,13 +155,19 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     ```
 
 19. You can see this will collect a lot of information but it contains crucial data about how each congestion control algorithim reacts to congestion. For example, find the label "snd_cwnd", you will see that in the first tcp_probe that it is equal to 38 and in the second one it has decreased to 24. This shows that there was a packet dropped to signal congestion and the window size has decreased to accommodate this
-20. In order for you to collect this data on the Ubuntu-CLI-VBR-Server. We need to be running all commands as a root user
+20. We will first make a directory to save these files to
+
+    ```
+    mkdir tracefiles
+    ```
+
+22. In order for you to collect this data on the Ubuntu-CLI-VBR-Server. We need to be running all commands as a root user
 
     ```
     sudo -s
     ```
 
-21. We first will switch to the directory with TCP trace and enable it
+23. We first will switch to the directory with TCP trace and enable it
 
     ```
     cd /sys/kernel/debug/tracing
@@ -208,7 +214,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 30. Save the trace file to the itsclass directory. Save the file name as the bit rate and congestion control algorithim used in iperf3 (For example: Reno200KbpsTrace)
 
     ```
-    cp trace /home/itsclass/<filename>
+    cp trace /home/itsclass/tracefiles/<filename>
     ```
 
 31. Now clear the current trace file so you can collect more data
@@ -248,7 +254,14 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 |          Mean RTT        |          |          |           |           
 
 39. Wireshark can also generate graphs to view the RTT over the duration of the packet capture. To view these graphs, click on Statistics, TCP Stream Graphs, and then Round Trip Time.
-40. **POSSIBLE CWD GRAPH-TALK TO JULIO**
+40. To visualize the TCP trace files that we have generated through each test. We will use the python script in the files folder of this GitHub
+41. first we need to transfer these files to our gHost
+
+    ```
+    sudo scp -r /home/itsclass/tracefiles itsvm@<gHost IP>:/home/itsvm
+    ```
+
+42. 
 
 ## Questions
 
