@@ -261,7 +261,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     sudo scp -r /home/itsclass/tracefiles itsvm@<gHost IP>:/home/itsvm
     ```
 
-42. 
+42. Now open Visual Studio Code and use the python script to generate graphs on these trace files. (ensure your python file is in the same location as your trace files)
 
 ## Questions
 
