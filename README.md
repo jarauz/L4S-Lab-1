@@ -161,13 +161,13 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     mkdir tracefiles
     ```
 
-22. In order for you to collect this data on the Ubuntu-CLI-VBR-Server. We need to be running all commands as a root user
+21. In order for you to collect this data on the Ubuntu-CLI-VBR-Server. We need to be running all commands as a root user
 
     ```
     sudo -s
     ```
 
-23. We first will switch to the directory with TCP trace and enable it
+22. We first will switch to the directory with TCP trace and enable it
 
     ```
     cd /sys/kernel/debug/tracing
@@ -178,74 +178,74 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 
 ## Sending Variable and Constant Bit Rate Traffic
 
-22. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
-23. To generate the background CBR traffic we will use iperf3 to generate UDP traffic through the network, The following command will set the Ubuntu-CLI-CBR-Server to act as a server waiting for a request from a client
+23. To simulate a real world network. We will generate Constant Bit Rate traffic that acts as background traffic in a network and Variable Bit Rate traffic that acts as the user's traffic (such as streaming videos on Youtube)
+24. To generate the background CBR traffic we will use iperf3 to generate UDP traffic through the network, The following command will set the Ubuntu-CLI-CBR-Server to act as a server waiting for a request from a client
 
     ```
     iperf3 -s
     ```
 
-24. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
+25. This next command will generate the TCP VBR traffic using ffmpeg. This command will also set the Ubuntu-CLI-VBR-Server to act as a server waiting for a request from a client
 
     ```
     ffmpeg -re -f lavfi -i testsrc=size=720x480:rate=30 -c:v libx264 -crf 25 -b:v 500k -maxrate 500k -bufsize 500k -f mpegts tcp://0.0.0.0:5000?listen
     ```
 
-25. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
-26. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at 200Kbps and slowly raise the bit rate
+26. Before we start generating traffic, right click on the link between the Ubuntu-CLI-Router and the switch and start a Wireshark capture so that you can see traffic from both the CBR and VBR server
+27. We will start the background traffic on the Ubuntu-CLI-CBR-Client first at 200Kbps and slowly raise the bit rate
 
     ```
     iperf3 -c 192.168.2.2 -u -b 200k -t 0
     ```
 
-27. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
+28. We can now start the VBR data stream on the Ubuntu-CLI-VBR-Client with the following command,
 
     ```
     ffmpeg -i tcp://192.168.2.1:5000 -f null -
     ```
 
-28. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
-29. We then need to stop the TCP trace
+29. Let the VBR traffic run for 5 minutes or so in order to collect data and use ctrl+c to stop the data streams
+30. We then need to stop the TCP trace
 
     ```
     echo 0 > events/tcp/tcp_probe/enable
     ```
     
-30. Save the trace file to the itsclass directory. Save the file name as the bit rate and congestion control algorithim used in iperf3 (For example: Reno200KbpsTrace)
+31. Save the trace file to the itsclass directory. Save the file name as the bit rate and congestion control algorithim used in iperf3 (For example: Reno200KbpsTrace)
 
     ```
     cp trace /home/itsclass/tracefiles/<filename>
     ```
 
-31. Now clear the current trace file so you can collect more data
+32. Now clear the current trace file so you can collect more data
 
     ```
     head -12 trace > trace
     ```
     
-32. Stop the Wireshark capture and save it as Lab1-Reno-<BITRATE>. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
-33. Save all four Wireshark captures for later comparison during Lab 2
-34. You will now change the congestion control to TCP Cubic using the following command
+33. Stop the Wireshark capture and save it as Lab1-Reno-<BITRATE>. You will now run the data stream from step 18 three more times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
+34. Save all four Wireshark captures for later comparison during Lab 2
+35. You will now change the congestion control to TCP Cubic using the following command
 
     ```
     sudo sysctl -w net.ipv4.tcp_congestion_control=cubic
     sudo sysctl -w net.ipv4.tcp_ecn=0
     ```
 
-35. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
-36. Stop and save these Wireshark captures as Lab1-Cubic-<BITRATE>
+36. You will now run the data stream starting from step 18 four times and raising the CBR bit rate each time by 400 Kbps (200Kbps, 600Kbps, 1000Kbps, and 1400Kbps)
+37. Stop and save these Wireshark captures as Lab1-Cubic-<BITRATE>
 
 # Task 4
 
 ## Examining Results
 
-37. Open a new terminal in your gHost so we can calculate the mean RTT of each Wireshark capture using the following command. Make sure you're in the same directory as your captures.
+38. Open a new terminal in your gHost so we can calculate the mean RTT of each Wireshark capture using the following command. Make sure you're in the same directory as your captures.
 
     ```
     tshark -r <NAME OF PCAP>.pcapng -Y "tcp.analysis.ack_rtt" -T fields -e tcp.analysis.ack_rtt | awk '{ sum += $1; n++ } END { if (n > 0) print sum / n; else print "No RTT data found"; }'
     ```
 
-38. Create two tables, one for TCP Reno and one for TCP Cubic and save these values for comparison
+39. Create two tables, one for TCP Reno and one for TCP Cubic and save these values for comparison
 
 |   |   A   |   B   |   C   |   D   |
 |---|-------|-------|-------|-------|
@@ -253,21 +253,22 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 | CBR Client to CBR Server | 200 Kbps | 600 Kbps | 1000 Kbps | 1400 Kbps 
 |          Mean RTT        |          |          |           |           
 
-39. Wireshark can also generate graphs to view the RTT over the duration of the packet capture. To view these graphs, click on Statistics, TCP Stream Graphs, and then Round Trip Time.
-40. To visualize the TCP trace files that we have generated through each test. We will use the python script in the files folder of this GitHub
-41. first we need to transfer these files to our gHost
+40. Wireshark can also generate graphs to view the RTT over the duration of the packet capture. To view these graphs, click on Statistics, TCP Stream Graphs, and then Round Trip Time.
+41. To visualize the TCP trace files that we have generated through each test. We will use the python script in the files folder of this GitHub
+42. first we need to transfer these files to our gHost
 
     ```
     sudo scp -r /home/itsclass/tracefiles itsvm@<gHost IP>:/home/itsvm
     ```
 
-42. Now open Visual Studio Code and use the python script to generate graphs on these trace files. (ensure your python file is in the same location as your trace files)
-43. Below is an example graph of what you will be generating
+43. Now open Visual Studio Code and use the python script to generate graphs on these trace files. (ensure your python file is in the same location as your trace files)
+44. Below is an example graph of what you will be generating
 
 ![](./images/VBRScenario2G_Graph.png)
 
 ## Questions
 
-41. Open a Wireshark capture and apply the filter "tcp.flags.syn == 1" to find the SYN packet coming from 192.168.1.1 and expand the "Internet Protocol Verison 4" section of the packet. What is the ECN codepoint being used (ECT-1, ECT-0, Non-ECT, or CE)
-42. Look at the SYN-ACK packet returning from the server. Are there any flags set in the TCP header? Given that this is a standard TCP Reno/Cubic test, why does the server not negotiate ECN?
-43. On one of the Wireshark captures, go to statistics, TCP Stream Graphs, and view the Throughput graph. Observe the pattern in your throughput graph and explain why the throughput drops sharply at specific intervals and what is happening to the router's queue during those drops
+45. Open a Wireshark capture and apply the filter "tcp.flags.syn == 1" to find the SYN packet coming from 192.168.1.1 and expand the "Internet Protocol Verison 4" section of the packet. What is the ECN codepoint being used (ECT-1, ECT-0, Non-ECT, or CE)
+46. Look at the SYN-ACK packet returning from the server. Are there any flags set in the TCP header? Given that this is a standard TCP Reno/Cubic test, why does the server not negotiate ECN?
+47. On one of the Wireshark captures, go to statistics, TCP Stream Graphs, and view the Throughput graph. Observe the pattern in your throughput graph and explain why the throughput drops sharply at specific intervals and what is happening to the router's queue during those drops
+48. Looking at the Trace files that we generated, explain what is happening in each of these graphs
