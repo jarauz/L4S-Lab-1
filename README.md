@@ -214,7 +214,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
 31. Save the trace file to the tracefiles directory. Save the file name as the bit rate and congestion control algorithim used in iperf3 (For example: Reno200KbpsTrace)
 
     ```
-    cp trace /home/itsclass/tracefiles/<filename>
+    cp trace /home/itsclass/tracefiles/<filename>.txt
     ```
 
 32. Now clear the current trace file so you can collect more data
