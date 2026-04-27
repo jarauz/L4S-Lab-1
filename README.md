@@ -155,13 +155,13 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     ```
 
 19. You can see this will collect a lot of information but it contains crucial data about how each congestion control algorithim reacts to congestion. For example, find the label "snd_cwnd", you will see that in the first tcp_probe that it is equal to 38 and in the second one it has decreased to 24. This shows that there was a packet dropped to signal congestion and the window size has decreased to accommodate this
-20. We will first make a directory to save these files to on both the VBR and CBR clients
+20. We will first make a directory to save these files to on the Ubuntu-CLI-VBR-Client
 
     ```
     mkdir tracefiles
     ```
 
-21. In order for you to collect this data on the Ubuntu clients. We need to be running all commands as a root user
+21. In order for you to collect this data on the Ubuntu-CLI-VBR-Client. We need to be running all commands as a root user
 
     ```
     sudo -s
