@@ -211,7 +211,7 @@ In the commands below, text enclosed in angle brackets (e.g., <BITRATE>) acts as
     echo 0 > events/tcp/tcp_probe/enable
     ```
     
-31. Save the trace files from both of the clients to the tracefiles directory. Save the file name based on the type of traffic (VBR or CBR), the bit rate and congestion control algorithim used in iperf3 (For example: VBRReno200Kbps)
+31. Save the trace files from both of the clients to the tracefiles directory. Save the file name based on the type of traffic (VBR or CBR), the bit rate used in iperf3 and congestion control algorithim used (For example: VBRReno200Kbps)
 
     ```
     cp trace /home/itsclass/tracefiles/<filename>.txt
